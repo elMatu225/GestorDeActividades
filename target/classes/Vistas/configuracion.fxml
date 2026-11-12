@@ -12,6 +12,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -213,7 +214,7 @@
                         <Tab text="Cuenta" />
                     </tabs>
                   </TabPane>
-                  <VBox prefHeight="186.0" prefWidth="860.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">
+                  <VBox prefHeight="196.0" prefWidth="860.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="11.0" prefWidth="830.0" spacing="10.0">
                            <children>
@@ -295,26 +296,12 @@
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </padding>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="860.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="11.0" prefWidth="830.0" spacing="10.0">
-                           <children>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Imagenes/png_teal/configuracion.png" />
-                                 </image>
-                              </ImageView>
-                              <Label text="Opciones de visualización">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="195.0" prefWidth="830.0" spacing="15.0" style="-fx-background-color: #DEDEDE; -fx-background-radius: 20;">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
+                  <TitledPane prefHeight="137.0" prefWidth="860.0" text="Opciones de visualización">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <content>
+                        <HBox prefHeight="195.0" prefWidth="830.0" spacing="15.0" style="-fx-background-color: #DEDEDE;">
                            <padding>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </padding>
@@ -346,11 +333,8 @@
                               </VBox>
                            </children>
                         </HBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </padding>
-                  </VBox>
+                     </content>
+                  </TitledPane>
                   <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="860.0" spacing="10.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#onRestablecer" style="-fx-background-color: white;" text="Restablecer">

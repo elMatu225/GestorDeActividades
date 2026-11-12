@@ -144,7 +144,9 @@ public class InscripcionController extends BaseController implements Initializab
 
         boolean politicaAceptada = chkNormas.isSelected();
 
-        if (nombreCorrecto && apellidosCorrecto && correoCorrecto && actividadCorrecta && fechaCorrecta && turnoCorrecto && politicaAceptada) {
+        if (nombreCorrecto && apellidosCorrecto && correoCorrecto && 
+                actividadCorrecta && fechaCorrecta && 
+                turnoCorrecto && politicaAceptada) {
             return true;
         } else {
             return false;

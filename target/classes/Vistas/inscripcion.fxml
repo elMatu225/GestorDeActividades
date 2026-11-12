@@ -195,7 +195,7 @@
                </children>
             </HBox>
          </bottom>
-         <right>
+         <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background: #DEDEDE; -fx-background-color: #DEDEDE; -fx-padding: 0;" BorderPane.alignment="CENTER">
                <content>
             <VBox minHeight="-Infinity" spacing="20.0" style="-fx-background-color: #DEDEDE;">
@@ -457,7 +457,7 @@
             </VBox>
                </content>
             </ScrollPane>
-         </right>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

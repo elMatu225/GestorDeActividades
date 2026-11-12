@@ -28,6 +28,7 @@ private static Scene scene;
     
         scene = new Scene(loadFXML("inicio"), 1100 , 750); 
         stage.setScene(scene);
+        stage.setTitle("Gestor de actividades - v1.0");
         stage.show();
     }
     
