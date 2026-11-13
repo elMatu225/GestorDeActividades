@@ -33,14 +33,14 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="Archivo">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Nuevo" />
-                              <MenuItem mnemonicParsing="false" text="Guardar" />
+                          <MenuItem mnemonicParsing="false" onAction="#onNada" text="Nuevo" />
+                              <MenuItem mnemonicParsing="false" onAction="#onNada" text="Guardar" />
                               <MenuItem mnemonicParsing="false" onAction="#onSalir" text="Salir" />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Edición">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Preferencias" />
+                          <MenuItem mnemonicParsing="false" onAction="#onNada" text="Preferencias" />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Ayuda">
@@ -210,8 +210,8 @@
                   <TabPane prefHeight="30.0" prefWidth="860.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab text="Apariencia" />
-                      <Tab text="Notificaciones" />
-                        <Tab text="Cuenta" />
+                      <Tab onSelectionChanged="#onNada" text="Notificaciones" />
+                        <Tab onSelectionChanged="#onNada" text="Cuenta" />
                     </tabs>
                   </TabPane>
                   <VBox prefHeight="196.0" prefWidth="860.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">

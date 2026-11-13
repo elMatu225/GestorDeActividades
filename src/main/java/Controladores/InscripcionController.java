@@ -4,6 +4,8 @@
  */
 package Controladores;
 
+import Main.App;
+import Modelo.Actividad;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -21,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -38,7 +41,7 @@ public class InscripcionController extends BaseController implements Initializab
     @FXML
     private TextField txtCorreo;
     @FXML
-    private ComboBox<String> cmbActividad;
+    private ComboBox<Actividad> cmbActividad;
     @FXML
     private DatePicker dtFecha;
     @FXML
@@ -65,15 +68,21 @@ public class InscripcionController extends BaseController implements Initializab
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Como poner archivos en el combobox
-        cmbActividad.getItems().addAll(
-                "",
-                "Curso de Swing",
-                "Curso de JAVAFX",
-                "Curso de CSS",
-                "Curso de HTML"
-        );
-        
+
+        cmbActividad.setConverter(new StringConverter<Actividad>() {
+            @Override
+            public String toString(Actividad actividad) {
+                return actividad == null ? "" : actividad.getNombre();
+            }
+
+            @Override
+            public Actividad fromString(String texto) {
+                return null; // ComboBox no editable.
+            }
+        });
+
+        cmbActividad.setItems(App.getDatosAplicacion().getActividades());
+
         // Listener que actualiza los datos conforme se escriben o seleccionan los datos.
         txtNombre.textProperty().addListener((obs, anterior, nuevo) -> {
             if (nuevo == null || nuevo.trim().isEmpty()) {
@@ -81,7 +90,7 @@ public class InscripcionController extends BaseController implements Initializab
             } else {
                 lblNombre.setText("Nombre: " + nuevo);
             }
-            
+
         });
 
         txtApellidos.textProperty().addListener((obs, anterior, nuevo) -> {
@@ -90,25 +99,25 @@ public class InscripcionController extends BaseController implements Initializab
             } else {
                 lblApellidos.setText("Apellidos: " + nuevo);
             }
-            
+
         });
 
         txtCorreo.textProperty().addListener((obs, anterior, nuevo) -> {
             if (nuevo == null || nuevo.trim().isEmpty()) {
-                lblApellidos.setText("Correo: Sin especificar");
+                lblCorreo.setText("Correo: Sin especificar");
             } else {
-                lblApellidos.setText("Correo: " + nuevo);
+                lblCorreo.setText("Correo: " + nuevo);
             }
-            
+
         });
 
         cmbActividad.getSelectionModel().selectedItemProperty().addListener((obs, anterior, nuevo) -> {
-            if (nuevo == null || nuevo.isEmpty()) {
+            if (nuevo == null) {
                 lblActividad.setText("Actividad: Sin especificar");
             } else {
-                lblActividad.setText("Actividad: " + nuevo);
+                lblActividad.setText("Actividad: " + nuevo.getNombre());
             }
-            
+
         });
 
         dtFecha.valueProperty().addListener((obs, anterior, nuevo) -> {
@@ -117,17 +126,17 @@ public class InscripcionController extends BaseController implements Initializab
             } else {
                 lblFecha.setText("Fecha: " + nuevo);
             }
-            
+
         });
 
         turno.selectedToggleProperty().addListener((obs, anterior, nuevo) -> {
             if (nuevo != null) {
                 RadioButton seleccion = (RadioButton) nuevo;
-                lblTurno.setText("Actividad: " + seleccion.getText());
+                lblTurno.setText("Turno: " + seleccion.getText());
             } else {
-                lblTurno.setText("Actividad: Sin seleccionar");
+                lblTurno.setText("Turno: Sin seleccionar");
             }
-            
+
         });
     }
 
@@ -136,7 +145,7 @@ public class InscripcionController extends BaseController implements Initializab
         boolean apellidosCorrecto = !txtApellidos.getText().trim().isEmpty();
         boolean correoCorrecto = txtCorreo.getText().trim().matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
 
-        boolean actividadCorrecta = cmbActividad.getValue() != null && cmbActividad.getValue() != "";
+        boolean actividadCorrecta = cmbActividad.getValue() != null;
 
         boolean fechaCorrecta = dtFecha.getValue() != null;
 
@@ -144,9 +153,9 @@ public class InscripcionController extends BaseController implements Initializab
 
         boolean politicaAceptada = chkNormas.isSelected();
 
-        if (nombreCorrecto && apellidosCorrecto && correoCorrecto && 
-                actividadCorrecta && fechaCorrecta && 
-                turnoCorrecto && politicaAceptada) {
+        if (nombreCorrecto && apellidosCorrecto && correoCorrecto
+                && actividadCorrecta && fechaCorrecta
+                && turnoCorrecto && politicaAceptada) {
             return true;
         } else {
             return false;
@@ -169,7 +178,7 @@ public class InscripcionController extends BaseController implements Initializab
                 txtNombre.setText("");
                 txtApellidos.setText("");
                 txtCorreo.setText("");
-                cmbActividad.setValue("");
+                cmbActividad.setValue(null);
                 dtFecha.setValue(null);
                 turno.selectToggle(null);
                 chkNormas.setSelected(false);
@@ -181,6 +190,23 @@ public class InscripcionController extends BaseController implements Initializab
     @FXML
     private void onEnviar(ActionEvent event) { // Boton para enviar formulario.
         if (comprobarFormulario()) {
+
+            // Obtenemos la actividad seleccionada
+            Actividad actividad = cmbActividad.getValue();
+
+            // Comprobamos si quedan plazas disponibles
+            if (actividad.getPlazasOcupadas() >= actividad.getPlazasTotales()) {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setTitle("Actividad completa");
+                error.setHeaderText("No quedan plazas disponibles");
+                error.setContentText("No puedes inscribirte en esta actividad.");
+                error.showAndWait();
+                return;
+            }
+
+            // Añadimos una plaza ocupada a la actividad
+            actividad.setPlazasOcupadas(actividad.getPlazasOcupadas() + 1);
+
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
             alerta.setTitle("Enviar...");
             alerta.setHeaderText("Inscripción registrada");
@@ -189,11 +215,17 @@ public class InscripcionController extends BaseController implements Initializab
                     "Nombre: " + txtNombre.getText().trim()
                     + "\nApellidos: " + txtApellidos.getText().trim()
                     + "\nCorreo: " + txtCorreo.getText().trim()
-                    + "\nActividad: " + cmbActividad.getValue()
+                    + "\nActividad: " + cmbActividad.getValue().getNombre()
                     + "\nFecha: " + dtFecha.getValue()
                     + "\nTurno: " + turnoSeleccionado
                     + "\nNormas y política de privacidad: Aceptada"
+                    + "Plazas: " + actividad.getPlazasOcupadas() + "/" + actividad.getPlazasTotales()
             );
+
+            // Comprobamos si la actividad se ha completado
+            if (actividad.getPlazasOcupadas() >= actividad.getPlazasTotales()) {
+                actividad.setEstado("Completa");
+            }
             lblConfirmacion.setText("");
 
             alerta.show();

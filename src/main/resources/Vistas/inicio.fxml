@@ -30,7 +30,7 @@
                       </Menu>
                       <Menu mnemonicParsing="false" text="Edición">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Delete" />
+                          <MenuItem mnemonicParsing="false" onAction="#onNada" text="Preferencias" />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Ayuda">
@@ -203,7 +203,7 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label text="12">
+                                    <Label fx:id="lblActividades" text="12">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -225,7 +225,7 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label text="48">
+                                    <Label fx:id="lblInscritos" text="48">
                                        <font>
                                           <Font name="System Bold" size="36.0" />
                                        </font>
@@ -304,7 +304,7 @@
                         <Label text="- Abierto el plazo de inscripción" />
                         <Label text="- Nueva actividad: Taller de JavaFX" />
                         <Label text="- Recordatorio: entrega de proyectos" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: #DEDEDE;" text="Ver todos">
+                        <Button mnemonicParsing="false" onAction="#onNada" style="-fx-background-color: #DEDEDE;" text="Ver todos">
                            <font>
                               <Font size="13.0" />
                            </font>

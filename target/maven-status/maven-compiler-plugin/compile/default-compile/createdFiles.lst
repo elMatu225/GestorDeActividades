@@ -1,6 +1,10 @@
+Controladores\InscripcionController$1.class
 Controladores\InicioController.class
 Controladores\InscripcionController.class
 Controladores\BaseController.class
 Controladores\ConfiguracionController.class
+Controladores\EditarOCrearActividadesController.class
+Modelo\Actividad.class
 Main\App.class
 Controladores\ActividadesController.class
+Modelo\DatosAplicacion.class

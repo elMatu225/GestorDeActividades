@@ -38,7 +38,7 @@
                       </Menu>
                       <Menu mnemonicParsing="false" text="Edición">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Delete" />
+                          <MenuItem mnemonicParsing="false" onAction="#onNada" text="Preferencias" />
                         </items>
                       </Menu>
                       <Menu mnemonicParsing="false" text="Ayuda">

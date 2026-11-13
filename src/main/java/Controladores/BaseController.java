@@ -46,6 +46,7 @@ public abstract class BaseController {
         alerta.getButtonTypes().setAll(
                 ButtonType.YES, ButtonType.NO
         );
+        alerta.initOwner(App.getVentanaPrincipal());
         Optional<ButtonType> resultado = alerta.showAndWait();
         if (resultado.isPresent() && resultado.get() == ButtonType.YES) {
             Platform.exit();
@@ -60,6 +61,19 @@ public abstract class BaseController {
         alerta.setContentText("Desarrollado por: Matías Gabriel Bottino Cuña."
         + "\n \nTodos los derechos reservados."
         );
+        alerta.initOwner(App.getVentanaPrincipal());
         alerta.show();
     }  
+    
+    
+    @FXML
+    private void onNada(ActionEvent event) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Sin uso");
+        alerta.setHeaderText("Elemento actualmente sin uso.");
+        alerta.setContentText("Disculpen las molestias.");
+        alerta.initOwner(App.getVentanaPrincipal());
+        alerta.show();
+    }
+
 }
